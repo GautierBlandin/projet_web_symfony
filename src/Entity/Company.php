@@ -22,16 +22,27 @@ class Company
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Name;
+    private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=JobAd::class, mappedBy="Company", orphanRemoval=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $relation;
+    private $city;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Ads::class, mappedBy="company")
+     */
+    private $jobads;
+
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="company")
+     */
+    private $contact;
 
     public function __construct()
     {
-        $this->relation = new ArrayCollection();
+        $this->jobads = new ArrayCollection();
+        $this->contact = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -41,41 +52,85 @@ class Company
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
 
     /**
-     * @return Collection|JobAd[]
+     * @return Collection|Ads[]
      */
-    public function getRelation(): Collection
+    public function getJobads(): Collection
     {
-        return $this->relation;
+        return $this->jobads;
     }
 
-    public function addRelation(JobAd $relation): self
+    public function addJobad(Ads $jobad): self
     {
-        if (!$this->relation->contains($relation)) {
-            $this->relation[] = $relation;
-            $relation->setCompany($this);
+        if (!$this->jobads->contains($jobad)) {
+            $this->jobads[] = $jobad;
+            $jobad->setCompany($this);
         }
 
         return $this;
     }
 
-    public function removeRelation(JobAd $relation): self
+    public function removeJobad(Ads $jobad): self
     {
-        if ($this->relation->contains($relation)) {
-            $this->relation->removeElement($relation);
+        if ($this->jobads->contains($jobad)) {
+            $this->jobads->removeElement($jobad);
             // set the owning side to null (unless already changed)
-            if ($relation->getCompany() === $this) {
-                $relation->setCompany(null);
+            if ($jobad->getCompany() === $this) {
+                $jobad->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    
+    public function getContact(): Collection
+    {
+        return $this->contact;
+    }
+
+    public function addContact(User $contact): self
+    {
+        if (!$this->contact->contains($contact)) {
+            $this->contact[] = $contact;
+            $contact->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(User $contact): self
+    {
+        if ($this->contact->contains($contact)) {
+            $this->contact->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getCompany() === $this) {
+                $contact->setCompany(null);
             }
         }
 
