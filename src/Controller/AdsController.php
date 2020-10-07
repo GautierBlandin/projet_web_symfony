@@ -39,30 +39,23 @@ class AdsController extends AbstractController
 
 
     /**
-     * @Route("/ads/show/{adsId}", name="ads_show")
+     * @Route("/ads", name="ads_show")
      */
-    public function showAds($adsId)
+    public function showAds()
     {
-        $ads = $this->getDoctrine()
-            ->getRepository(ads::class)
-            ->find($adsId);
+        $ads = $this->getDoctrine()->getRepository(ads::class)->findAll();
 
         if (!$ads) {
             throw $this->createNotFoundException(
-                'No ads found for id '.$adsId);
+                'No ads found');
         }
         else {
-            return $this->render('user/notifications.html.twig', [
+            return $this->render('test.html.twig', [
                 // this array defines the variables passed to the template,
                 // where the key is the variable name and the value is the variable value
                 // (Twig recommends using snake_case variable names: 'foo_bar' instead of 'fooBar')
 
-            'ads_Description' => $adsDescription,
-            'ads_Wage' => $adsWage,
-            'ads_Place' => $adsPlace,
-            'ads_Title' => $adsTitle,
-            'ads_Creation_Date' => $adsCreationDate,
-            'ads_End_Date' => $adsEndDate,
+            'ads' => $ads,
             ]);
         }    
     }

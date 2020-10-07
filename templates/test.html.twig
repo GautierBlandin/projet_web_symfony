@@ -8,7 +8,7 @@
 
     <!-- Custom styles for this template-->
     <link href = "../bootstrap/dist/css/bootstrap.css" rel = "stylesheet" type = "text/css">
-    <link href = "../styles/style.css" rel = "stylesheet" type = "text/css">
+    <link href = "../styless/style.css" rel = "stylesheet" type = "text/css">
 </head>
 
 <body class = "d-flex">
@@ -37,51 +37,66 @@
         <!-- END TOPBAR -->
 
         <!-- ADS -->
+        {% for ad in ads %}
         <div class = "col-sm-12">
             <div class = "card advertCard">
                 <div class = "card-header">
                     <div class = "d-inline-block pt-2 pl-3">
-                         <span class = "advert" >Senior Java Developper </span>
+                         <span class = "advert" > {{ ad.getTitle() }} </span>
                     </div>
 
                     <div class = "d-inline-block pt-2 pl-3">
-                        <span>{{ jobAd.getDescription() }}</span>
+                        <span>{{ ad.getDescription() }}
+                            </span>
                     </div>
                     <div class = "d-inline-block float-right">
-                        <a class="btn btn-primary nav-link" href="#MyCollapseCard" data-toggle="collapse" role="button"
-                           aria-expanded="true" aria-controls="MyCollapseCard">
+                        <a class="btn btn-primary nav-link" href="#MyCollapseCard{{ ad.getId() }}" data-toggle="collapse" role="button"
+                           aria-expanded="true" aria-controls="MyCollapseCard{{ ad.getId() }}">
                             Learn more
                         </a>
                     </div>
                 </div>
-                <div class="collapse" id="MyCollapseCard">
+                <div class="collapse" id="MyCollapseCard{{ ad.getId() }}">
                     <div class = row>
                         <div class = "col-sm-12 col-md-5">
-                            <div class = "pl-2 pt-2" style = "min-height : 7rem">FULL JOB DESCRIPTION
+                            <div class = "pl-2 pt-2" style = "min-height : 7rem">{{ ad.getDescription() }}
                             </div>
                         </div>
                         <div class = "col-sm-12 col-md-5">
                             <div class = "pl-2 pt-2">
-                                Wage : <br>
-                                Location : <br>
-                                Contact : <br>
+                                Wage : {{ ad.getWage() }} <br>
+                                Location : {{ ad.getPlace() }}<br>
+                                Contact : yapa<br>
                             </div>
                         </div>
                         <div class ="col-sm-12 col-md-2 d-flex align-items-center justify-content-center">
                             <div class = "align-middle d-inline-block">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown button
+                                    Apply
                                 </button>
                                 <div class="dropdown-menu applyForm" aria-labelledby="dropdownMenuButton">
                                     <form>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Email address</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                        <div class="mb-1">
+                                            <label for="InputEmail1">Email address :</label>
+                                            <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                        <div class="mb-1">
+                                            <label for="inputFirstName">First Name :</label>
+                                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
                                         </div>
+                                        <div class="mb-1">
+                                            <label for="inputLastName">Last Name :</label>
+                                            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="inputPhone">Phone :</label>
+                                            <input type="text" class="form-control" id="inputPhone" placeholder="Phone">
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="inputMessage">Message :</label>
+                                            <textarea type="text" rows="5" cols="33" class="form-control" id="inputMessage" placeholder="Message"> </textarea>
+                                        </div>
+
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>
@@ -92,20 +107,21 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
         <!-- END ADS -->
     </div>
 <!-- END CONTENT -->
 
 
 <!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="../vendor/jquery/jquery.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.js"></script>
+<script src="../vendor/jquery-easing/jquery.easing.js"></script>
 
 <!-- Custom JavaScript-->
-<script src="js/script.js"></script>
+<script src="../js/script.js"></script>
 
 </body>
 </html>

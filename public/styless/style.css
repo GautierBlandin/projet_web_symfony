@@ -117,7 +117,8 @@ html, body{
 }
 
 .applyForm{
-    position:absolute;
-    left : -20rem;
-    width: 20rem;
+    position : absolute;
+    left : -20rem !important;
+    width: 30rem;
+    padding : 15px;
 }
