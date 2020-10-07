@@ -1,0 +1,123 @@
+:root{
+    --primary : #4169e1;
+    --primary-dark : #193075;
+}
+
+body{
+    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    color : #858796;
+}
+
+html, body{
+    z-index: -500;
+}
+
+.sidebar{
+    min-height: 100vh;
+    width : 14rem;
+    background-color : var(--primary);
+    /*z-index: -1;*/
+}
+
+.bg-gradient-primary {
+    background-color: var(--primary);
+    background-image: linear-gradient(180deg, var(--primary) 10%, var(--primary-dark) 100%);
+    background-size: cover;
+}
+
+
+.sidebar-brand, .sidebar-title{
+    height: 4.375rem;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    z-index: 500;
+    color : white;
+}
+
+.sidebar-title {
+    text-decoration:none;
+    font-size:1rem;
+    font-weight:200;
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:.05rem;
+    z-index:500;
+    color : white;
+}
+
+.sidebar-title:hover{
+    color:#DCDCDC;
+}
+
+.sidebar-divider {
+    margin : 0 0 0 10%;
+    /*border-top: 1px solid #eaecf4;*/
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    width: 80%;
+}
+
+.topbar{
+    height: 4.375rem;
+}
+
+
+
+.custom-row{
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.card-header{
+    padding: 0;
+}
+
+
+
+.advert{
+    color : var(--primary);
+    font-weight: 600;
+    border-radius : 0;
+}
+
+.advertCard{
+    border-radius : 0;
+}
+
+.advert:hover{
+    text-decoration: none;
+    color : var(--primary);
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--primary);
+    border-color: var(--primary);
+    font-weight: 500;
+    border-radius : 0;
+}
+
+.searchBar{
+    position: absolute;
+    top : 1rem;
+    left : 2.7rem;
+    width : 20rem;
+}
+
+.searchBarButton{
+    position: absolute;
+    left : 22.5rem;
+    top : 1rem;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.applyForm{
+    position:absolute;
+    left : -20rem;
+    width: 20rem;
+}
