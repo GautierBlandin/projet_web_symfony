@@ -17,6 +17,7 @@ html, body{
     width : 14rem;
     background-color : var(--primary);
     /*z-index: -1;*/
+    flex-shrink : 0;
 }
 
 .bg-gradient-primary {
@@ -25,6 +26,9 @@ html, body{
     background-size: cover;
 }
 
+.bg-primary{
+    background-color : var(--primary);
+}
 
 .sidebar-brand, .sidebar-title{
     height: 4.375rem;
@@ -121,4 +125,32 @@ html, body{
     left : -20rem !important;
     width: 30rem;
     padding : 15px;
+}
+
+.register-title{
+    font-size: 28px;
+    color : #4e555b;
+}
+
+.register-input{
+    border : lightgray 1px solid;
+    border-radius: 20px;
+}
+
+.register-input-field{
+    border : none;
+    width : 100%;
+}
+
+
+.register-button{
+    background-color: var(--primary);
+    border : var(--primary) 1px solid;
+    border-radius: 20px;
+}
+
+.register-button-input{
+    border : none;
+    background: none;
+    color : white;
 }

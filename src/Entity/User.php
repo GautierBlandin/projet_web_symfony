@@ -6,11 +6,20 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields = {"email"}, message="It appears you have already registered with this email.")
  */
-class User
+
+
+
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -30,7 +39,7 @@ class User
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
 
@@ -110,6 +119,26 @@ class User
         $this->applications = new ArrayCollection();
     }
 
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function getRoles()
+    {
+        $array = ['0' => 'user', '1' => 'admin'];
+        return $array;
+    }
+
+    public function eraseCredentials()
+    {
+        $this -> admin = false;
+    }
+
+    public function getSalt()
+    {
+        return $this -> email;
+    }
 
     public function getId(): ?int
     {
