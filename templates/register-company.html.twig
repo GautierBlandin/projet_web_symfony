@@ -6,12 +6,27 @@
         {#                        Form Column#}
         <div class = "col-lg-7">
             <div class = "p-5 ">
-                <div class = "text-center register-title m-3">
-                    Register !
-                </div>
                 {{ form_start(form) }}
                 {{ form_errors(form) }}
+                <div class = "text-center register-title m-3">
+                    Company
+                </div>
                 <div class = row>
+                    <div class = col-lg-6>
+                        <div class = 'register-input m-2 p-2 text-left'>
+                            {{ form_row(form.company.name) }}
+                        </div>
+                    </div>
+                    <div class = col-lg-6>
+                        <div class = 'register-input m-2 p-2 text-left'>
+                            {{ form_row(form.company.city) }}
+                        </div>
+                    </div>
+                    <div class = "col-lg-12">
+                        <div class = "text-center register-title m-3">
+                            Contact
+                        </div>
+                    </div>
                     <div class = col-lg-6>
                         <div class = 'register-input m-2 p-2 text-left'>
                             {{ form_row(form.first_name) }}
@@ -38,16 +53,11 @@
                         </div>
                     </div>
                     <div class = col-lg-12>
-                        <div class = 'register-button m-2 p-2 text-center'>
+                        <div class = 'register-button bg-success m-2 p-2 text-center'>
                             {{ form_row(form.register) }}
                         </div>
                     </div>
                     {{ form_end(form) }}
-                    <div class = "col-lg-12 text-right">
-                        <div class = "pr-2">
-                            <a href = {{ path('registerCompany') }}> Working for a company ? Register here</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

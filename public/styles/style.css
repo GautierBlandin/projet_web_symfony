@@ -150,7 +150,7 @@ a:hover{
 
 .register-button{
     background-color: var(--primary);
-    border : var(--primary) 1px solid;
+    border : var(--primary) 1px hidden;
     border-radius: 20px;
     color : white;
 }
