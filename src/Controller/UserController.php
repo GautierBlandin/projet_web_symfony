@@ -50,10 +50,30 @@ class UserController extends AbstractController
         }
 
     /**
+     * @Route("/register-menu", name = "registerMenu")
+     */
+
+    public function register_menu()
+    {
+        return $this->render('register-menu.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("/register-company", name = "registerCompany")
+     */
+
+    public function register_company()
+    {
+        return $this->render('register-menu.html.twig', [
+        ]);
+    }
+
+    /**
      * @Route("/register", name="registerPage")
      */
 
-    public function new(Request $request)
+    public function new_user(Request $request)
     {
         // just setup a fresh $task object (remove the example data)
         $user = new User();
@@ -83,7 +103,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute("loginPage");
         }
 
-        return $this->render('register.html.twig', [
+        return $this->render('register-user.html.twig', [
             'form' => $form->createView(),
         ]);
     }
