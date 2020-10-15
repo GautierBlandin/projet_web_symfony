@@ -16,9 +16,9 @@
 
 <!-- SIDEBAR -->
     <div class = "sidebar bg-gradient-primary" >
-        <div class = "sidebar-brand">nav title</div>
+        <div class = "sidebar-brand">Jobs Hunter</div>
         <hr class = "sidebar-divider">
-        <div class = "sidebar-title">title1</div>
+        <div class = "sidebar-title">Our current job ads</div>
     </div>
 
 <!-- CONTENT -->
@@ -55,7 +55,7 @@
                     <div class = row>
                         <div class = "col-sm-10">
                             <div class = "d-inline-block pt-2 pl-3">
-                                 <span class = "advert" > {{ ad.getTitle() }} </span>
+                                 <span class = "advert" > {{ ad.getTitle() }} - {{ ad.getPlace() }} - {{ ad.getCreationDate()|date("d/m/Y") }}</span>
                             </div>
 
                             <div class = "d-inline-block pt-2 pl-3 pb-2 text-justify magic">
@@ -82,15 +82,19 @@
                     <div class = row>
                         <div class = "col-sm-12 col-md-5">
                             <div class = "pl-2 pt-2" style = "min-height : 7rem">
+                                <h4>Job description</h4>
 {#                                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?#}
                                 {{ ad.getDescription() }}
                             </div>
                         </div>
                         <div class = "col-sm-12 col-md-5">
                             <div class = "pl-2 pt-2">
-                                Wage : {{ ad.getWage() }} <br>
-                                Location : {{ ad.getPlace() }}<br>
-                                Contact : yapa<br>
+                                <h4>Wage</h4>
+                                {{ ad.getWage() }} <br><br>
+                                <h4>Location</h4>
+                                {{ ad.getPlace() }}<br><br>
+                                <h4>Contact</h4>
+                                yapa<br>
                             </div>
                         </div>
                         <div class ="col-sm-12 col-md-2 d-flex align-items-center justify-content-center">
