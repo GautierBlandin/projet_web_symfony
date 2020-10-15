@@ -19,7 +19,7 @@ class TestController extends AbstractController
     {
 
         // the template path is the relative file path from `templates/`
-        return $this->render('test.html.twig', [
+        return $this->render('ads.html.twig', [
             // this array defines the variables passed to the template,
             // where the key is the variable name and the value is the variable value
             // (Twig recommends using snake_case variable names: 'foo_bar' instead of 'fooBar')
@@ -36,7 +36,7 @@ class TestController extends AbstractController
 
 
         // the template path is the relative file path from `templates/`
-        return $this->render('test.html.twig', [
+        return $this->render('ads.html.twig', [
             // this array defines the variables passed to the template,
             // where the key is the variable name and the value is the variable value
             // (Twig recommends using snake_case variable names: 'foo_bar' instead of 'fooBar')

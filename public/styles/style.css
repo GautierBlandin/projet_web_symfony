@@ -1,6 +1,7 @@
 :root{
     --primary : #4169e1;
     --primary-dark : #193075;
+    --orange : #E08A10;
 }
 
 body{
@@ -10,6 +11,10 @@ body{
 
 html, body{
     z-index: -500;
+}
+
+a:hover{
+    text-decoration: none;
 }
 
 .sidebar{
@@ -145,12 +150,33 @@ html, body{
 
 .register-button{
     background-color: var(--primary);
-    border : var(--primary) 1px solid;
+    border : var(--primary) 1px hidden;
     border-radius: 20px;
+    color : white;
+}
+
+.register-button-company{
+    background-color: var(--orange);
+    border : var(--orange) 1px solid;
+    border-radius: 20px;
+    color : white;
 }
 
 .register-button-input{
     border : none;
     background: none;
     color : white;
+}
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+}
+
+.magic {
+    max-height: 3.8em;
+    overflow-y: hidden;
 }

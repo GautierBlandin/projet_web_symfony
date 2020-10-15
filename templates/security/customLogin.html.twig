@@ -39,7 +39,7 @@
                                     <div class = row>
                                         <div class = col-lg-12>
                                             <div class = 'register-input m-2 p-2 text-left'>
-                                                <input type="email" class = "register-input-field pl-2" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                                                <input type="email" class = "register-input-field pl-2" placeholder="Email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
                                             </div>
                                         </div>
                                         <div class = col-lg-12>
@@ -57,6 +57,11 @@
                                                 <button class="register-button-input w-100" type="submit">
                                                     Sign in
                                                 </button>
+                                            </div>
+                                        </div>
+                                        <div class = "col-lg-12 text-right">
+                                            <div class = "pr-2">
+                                                <a href = {{ path('registerMenu') }}> No account yet ? Register</a>
                                             </div>
                                         </div>
                                     </div>
