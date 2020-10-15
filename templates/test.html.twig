@@ -90,30 +90,7 @@
                                     Apply
                                 </button>
                                 <div class="dropdown-menu applyForm" aria-labelledby="dropdownMenuButton">
-                                    <form>
-                                        <div class="mb-1">
-                                            <label for="InputEmail1">Email address :</label>
-                                            <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                        </div>
-                                        <div class="mb-1">
-                                            <label for="inputFirstName">First Name :</label>
-                                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
-                                        </div>
-                                        <div class="mb-1">
-                                            <label for="inputLastName">Last Name :</label>
-                                            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
-                                        </div>
-                                        <div class="mb-1">
-                                            <label for="inputPhone">Phone :</label>
-                                            <input type="text" class="form-control" id="inputPhone" placeholder="Phone">
-                                        </div>
-                                        <div class="mb-1">
-                                            <label for="inputMessage">Message :</label>
-                                            <textarea type="text" rows="5" cols="33" class="form-control" id="inputMessage" placeholder="Message"> </textarea>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
+                                    {{ forms(form)}}
                                 </div>
                             </div>
 
