@@ -8,46 +8,57 @@
 
     <!-- Custom styles for this template-->
     <link href = "../bootstrap/dist/css/bootstrap.css" rel = "stylesheet" type = "text/css">
-    <link href = "../styles/style.css" rel = "stylesheet" type = "text/css">
+    <link href = "../styles/styles.css" rel = "stylesheet" type = "text/css">
 </head>
 
 <body class = "d-flex">
 
 
-<!-- SIDEBAR -->
-    <div class = "sidebar bg-gradient-primary" >
-        <div class = "sidebar-brand">JobsHunter</div>
-        <hr class = "sidebar-divider">
-        <div class = "sidebar-title">Our current ads</div>
-        <div class = "sidebar-title">Your profile</div>
-    </div>
+<!-- NAVBAR-->
+                <nav class="navbar fixed-top navbar-dark bg-primary">
+                    <a class="navbar-brand" href="#">JobsHunter</a>
+                        <ul class="list-group-horizontal navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Our current ads<span class="sr-only">(current)</span></a>
+                            </li>
+                            
+                            <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="userMenu" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Account information
+                                    </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="userMenu">See your profile</a>
+                                    <a class="dropdown-item" href="/updateUser/{id}">Update your profile</a>
+                                    <a class="dropdown-item" href="userMenu">See your applications</a>
+                                </div>
+                            </li>
 
-<!-- CONTENT -->
-    <div class = "custom-row flex-fill">
-        <!-- TOPBAR -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About us</a>
+                            </li>
+                        </ul>
+
+                        <span class="navbar-text">
+                        {% if app.user %}
+                            Welcome {{ app.user.getFirstName() }} <a href="{{ path('app_logout') }}">Logout</a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}">Login</a> or <a href="{{ path('registerPage') }}">Register</a>
+                        {% endif %}
+                        </span>
+                        </div>
+                </nav>  
+    
+        <!-- END TOPBAR -->
+        
         <div class = "col-sm-12">
-            <div class = "topbar row">
-                <div class = "col-sm-7">
+                        <div class = "col-sm-7">
                     <div class="searchBar">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                     </div>
                     <div>
                         <button class = "btn btn-primary searchBarButton">Search</button>
                     </div>
-                </div>
-                <div class = col-sm-5>
-                    <div class="p-3">
-                    {% if app.user %}
-                            Welcome {{ app.user.getFirstName() }} <a href="{{ path('app_logout') }}">Logout</a>
-                    {% else %}
-                        <a href="{{ path('app_login') }}">Login</a>
-                    {% endif %}
-                    </div>
-                </div>
-            </div>
         </div>
-        <!-- END TOPBAR -->
-        <div class = "col-sm-12">
         <!-- ADS -->
         {% set i = 0 %}
         {% for ad in ads %}

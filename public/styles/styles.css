@@ -13,9 +13,19 @@ html, body{
     z-index: -500;
 }
 
-li{
-    list-style-type: none;
-}
+nav ul{
+    list-style: none;
+    margin: 0 2px;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+  }
+
+nav ul li {
+    list-style-type:none;
+    margin-left: 45px;                    
+  }
+
 
 a:hover{
     text-decoration: none;

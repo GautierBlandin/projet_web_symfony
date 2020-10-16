@@ -8,7 +8,7 @@
 
     <!-- Custom styles for this template-->
     <link href = "../bootstrap/dist/css/bootstrap.css" rel = "stylesheet" type = "text/css">
-    <link href = "../styles/style.css" rel = "stylesheet" type = "text/css">
+    <link href = "../styles/styles.css" rel = "stylesheet" type = "text/css">
 </head>
 
 <body class = "d-flex">
@@ -17,7 +17,39 @@
 <!-- SIDEBAR -->
     
 
-<!--END SIDEBAR -->
+<!-- NAVBAR-->
+                <nav class="navbar fixed-top navbar-dark bg-primary">
+                    <a class="navbar-brand" href="#">JobsHunter</a>
+                        <ul class="list-group-horizontal navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Our current ads<span class="sr-only">(current)</span></a>
+                            </li>
+                            
+                            <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="userMenu" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Account information
+                                    </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="userMenu">See your profile</a>
+                                    <a class="dropdown-item" href="/updateUser/{id}">Update your profile</a>
+                                    <a class="dropdown-item" href="userMenu">See your applications</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About us</a>
+                            </li>
+                        </ul>
+
+                        <span class="navbar-text">
+                        {% if app.user %}
+                            Welcome {{ app.user.getFirstName() }} <a href="{{ path('app_logout') }}">Logout</a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}">Login</a> or <a href="{{ path('registerPage') }}">Register</a>
+                        {% endif %}
+                        </span>
+                        </div>
+                </nav>  
 
 <!-- CONTENT -->
     <div class = "custom-row flex-fill">
@@ -117,10 +149,10 @@
                             aria-expanded="true" aria-controls="MyCollapseCard">
                             Show Full Information
                         </a>
-                        <a class="btn btn-success bg-orange nav-link" href="updateAd/">
+                        <a class="btn btn-success bg-orange nav-link" href="updateUser/{{user.id()}}">
                             Update your information
                         </a>
-                        <a class="btn btn-danger nav-link" href="deleteAd/">
+                        <a class="btn btn-danger nav-link" href="deleteAccount/{{user.id()}}">
                             Delete your account
                         </a>
                     </div>

@@ -103,47 +103,45 @@ class UserCMSController extends AbstractController
 
 
     /**
-     * @Route("/showUser/{id}", name="showUser")
-     */
-    public function showUser($username){
-
+     * @Route("/deleteAccount/{id}", name="deleteUser")
+    */
+    public function deleteUser($id)
+    {        
         $em = $this->getDoctrine()->getManager();
-        $apply = $em->getRepository(Apply::class)->find($id);
+        $user = $em->getRepository(User::class)->find($id);
 
-        if (!$apply) {
-            throw $this->createNotFoundException('No application found');
-        }
-        
+        $em->remove($user);
+        $em->flush();
 
-        return $this->redirect($this->generateUrl('userMenu'));
+        return $this->redirect($this->generateUrl('ads_show'));
     }
 
 
     /**
      * @Route("/updateUser/{id}", name="updateUser")
      */
-    public function updateApply(Apply $apply, Request $request, $id){
+    public function updateUser(User $user, Request $request, $id){
 
         $em = $this->getDoctrine()->getManager();
-        $apply = $em->getRepository(Apply::class)->find($id);
-        $newApply = false;
+        $user = $em->getRepository(User::class)->find($id);
+        
+        $newUser = false;
 
-        $form = $this->createForm(ApplyType::class, $apply);
+        $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $apply = $form->getData();
-            $apply->setUpdatedAt(new \DateTime('now'));
+            $user = $form->getData();
 
-            $em->persist($apply);
+            $em->persist($user);
             $em->flush();
 
             return $this->redirectToRoute('userMenu');
         }
 
-        return $this->render('user_cms/update-form.html.twig', [
+        return $this->render('user_cms/update-user.html.twig', [
             'form' => $form->createView()
         ]);
     }

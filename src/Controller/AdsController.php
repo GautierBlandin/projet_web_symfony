@@ -21,7 +21,7 @@ class AdsController extends AbstractController
     /**
      * @Route("/ads/create", name="ads")
      */
-    public function createAds()
+    /*public function createAds()
     {
 
     $ads = new Ads();
@@ -40,7 +40,7 @@ class AdsController extends AbstractController
     $em->flush();
 
     return new Response('Saved new ad with id '.$ads->getId());
-}
+}*/
 
 
     /**
