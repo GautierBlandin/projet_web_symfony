@@ -16,9 +16,10 @@
 
 <!-- SIDEBAR -->
     <div class = "sidebar bg-gradient-primary" >
-        <div class = "sidebar-brand">Jobs Hunter</div>
+        <div class = "sidebar-brand">JobsHunter</div>
         <hr class = "sidebar-divider">
-        <div class = "sidebar-title">Our current job ads</div>
+        <div class = "sidebar-title">Our current ads</div>
+        <div class = "sidebar-title">Your profile</div>
     </div>
 
 <!-- CONTENT -->
@@ -57,7 +58,7 @@
                             <div class = "d-inline-block pt-2 pl-3">
                                  <span class = "advert" > {{ ad.getTitle() }} - {{ ad.getPlace() }} - {{ ad.getCreationDate()|date("d/m/Y") }}</span>
                             </div>
-
+                            <br>
                             <div class = "d-inline-block pt-2 pl-3 pb-2 text-justify magic">
                                 <span>
                                     {{ ad.getDescription() }}
@@ -99,12 +100,9 @@
                         </div>
                         <div class ="col-sm-12 col-md-2 d-flex align-items-center justify-content-center">
                             <div class = "align-middle d-inline-block">
-                                <button class="btn btn-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Apply
-                                </button>
-                                <div class="dropdown-menu applyForm" aria-labelledby="dropdownMenuButton">
-                                    {{ form(forms[i]) }}
-                                </div>
+                            <button type="button" class="btn btn-success">
+                                <a href={{ path('applyForm',{id: ad.id }) }} class="btn btn-success">Apply</a>
+                            </button>
                             </div>
 
                         </div>

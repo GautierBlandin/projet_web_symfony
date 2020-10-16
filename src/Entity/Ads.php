@@ -56,7 +56,7 @@ class Ads
     private $endDate;
 
     /**
-     * @ORM\OneToMany(targetEntity=Applications::class, mappedBy="adsApplied")
+     * @ORM\OneToMany(targetEntity=Apply::class, mappedBy="Ad")
      */
     private $applications;
 
@@ -64,6 +64,7 @@ class Ads
     public function __construct()
     {
         $this->applications = new ArrayCollection();
+        $this->Applications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,32 +157,35 @@ class Ads
     }
 
     /**
-     * @return Collection|applications[]
+     * @return Collection|Apply[]
      */
     public function getApplications(): Collection
     {
-        return $this->applications;
+        return $this->Applications;
     }
 
-    public function addApplication(applications $application): self
+    public function addApplication(Apply $application): self
     {
-        if (!$this->applications->contains($application)) {
-            $this->applications[] = $application;
+        if (!$this->Applications->contains($application)) {
+            $this->Applications[] = $application;
             $application->setAd($this);
         }
 
         return $this;
     }
 
-    public function removeApplication(applications $application): self
+    public function removeApplication(Apply $application): self
     {
-        if ($this->applications->contains($application)) {
-            $this->applications->removeElement($application);
+        if ($this->Applications->contains($application)) {
+            $this->Applications->removeElement($application);
             // set the owning side to null (unless already changed)
             if ($application->getAd() === $this) {
                 $application->setAd(null);
             }
         }
+
         return $this;
     }
+
+
 }

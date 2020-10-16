@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ApplyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,30 @@ class Apply
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Ads::class, inversedBy="applications")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $ad;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="applies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    
+
+    public function __construct()
+    {
+        $this->user = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -140,4 +166,42 @@ class Apply
 
         return $this;
     }
+
+    public function getAd(): ?ads
+    {
+        return $this->ad;
+    }
+
+    public function setAd(?ads $ad): self
+    {
+        $this->ad = $ad;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    
 }

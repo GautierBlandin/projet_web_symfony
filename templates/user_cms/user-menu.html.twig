@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>JobsHunter</title>
+
+    <!-- Custom fonts for this template-->
+{#    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">#}
+
+    <!-- Custom styles for this template-->
+    <link href = "../bootstrap/dist/css/bootstrap.css" rel = "stylesheet" type = "text/css">
+    <link href = "../styles/style.css" rel = "stylesheet" type = "text/css">
+</head>
+
+<body class = "d-flex">
+
+
+<!-- SIDEBAR -->
+    
+
+<!--END SIDEBAR -->
+
+<!-- CONTENT -->
+    <div class = "custom-row flex-fill">
+        <!-- TOPBAR -->
+        <div class = "col-sm-12">
+            <div class = "topbar row">
+                <div class = "col-sm-7">
+                    
+                </div>
+                <div class = col-sm-5>
+                    <div class="p-3">
+                    {% if app.user %}
+                            Welcome {{ app.user.getFirstName() }} <a href="{{ path('app_logout') }}">Logout</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}">Login</a>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END TOPBAR -->
+        <div class = "row">
+            <div class = "col-sm-7">
+            <!-- APPLICATIONS -->
+                <h4 class="text-center">Your applications </h4>
+                    
+                <!-- Applications -->
+                {% for application in applications %}
+                <div>
+                    <div class = "d-inline-block pt-2 pl-5 pb-2 text-justify magic ">
+                    {{ application.getAd().getTitle() }} - {{ application.getAd().getPlace() }}<br>
+                    <p> Sent on: {{ application.getAd().getCreationDate()|date("d/m/Y") }}</p>
+                    {{ application.getMessage() }}  
+                    </div> 
+                </div> 
+                <!-- Update delete or show full application -->
+                <div>
+                    <div class="row justify-content-center align-self-center ml-0">
+                        <a class="btn btn-primary nav-link" href="#MyCollapseCard{{ application.id }}" data-toggle="collapse" role="button"
+                            aria-expanded="true" aria-controls="MyCollapseCard{{ application.id }}">
+                            Show Full Information
+                        </a>
+                        <a class="btn btn-success bg-orange nav-link" href="updateApplication/{{application.id}}">
+                            Update
+                        </a>
+                        <a class="btn btn-danger nav-link" href="deleteApplication/{{application.id}}">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+                <div class="collapse" id="MyCollapseCard{{ application.id }}">
+                    <div class = "card avertCard">
+                        <div class = "car-header">
+                            <div class = "row">
+                                <div class = "col-sm-12 col-md-5">
+                                {{ application.getAd().getTitle() }}
+                                {{ application.getAd().getDescription() }}
+                                {{ application.getAd().getWage() }}
+                                {{ application.getAd().getPlace() }}
+                                {{ application.getAd().getCompany() }}
+                                {{ application.getAd().getCreationDate()|date("d/m/Y")  }}
+                                {{ application.getAd().getEndDate()|date("d/m/Y")  }}
+                                </div>
+                                
+                                <div class = "col-sm-12 col-md-5">
+                                {{ application.getMessage() }}
+                                {{ application.getCreatedAt()|date("d/m/Y")  }}
+                                {{ application.getUpdatedAt()|date("d/m/Y")  }}
+                                
+                                </div>
+                            </div>
+                        </div>        
+                    </div> 
+                </div>        
+                {% endfor %}
+            </div>
+
+            <div class = "col-sm-5">
+            <!-- User information -->
+                <h5 class="text-center"> Your personal information </h4>
+                <ul>
+                    <li><b>Name:</b> {{ user.getFirstName() }} {{ user.getLastName() }}</li>
+                    <li><b>Email:</b> {{ user.getEmail() }}</li>
+                    <li><b>Password:</b> {{ user.getPassword() }} </li>
+                    <li><b>Phone number:</b> {{ user.getPhoneNumber() }} </li>
+                    <li><b>Adress:</b> {{ user.getAdress() }} </li>
+                    <li><b>Age:</b> {{ user.getAge() }} </li>
+                    <li><b>Gender:</b> {{ user.getGender() }} </li>
+                    <li><b>Studies:</b> {{ user.getStudies() }} </li>
+                    <li><b>Previous working experience:</b> {{ user.getExperience() }} </li>
+                    <!-- <li><b>Resume:</b> {{ user.getResume() }} </li>
+                    <li><b>Availabilities:</b> {{ user.getAvailabilities() }} </li>
+                    <li><b>Biography:</b> {{ user.getBiography() }} </li> -->
+                </ul>
+                <div class="col justify-content-center align-self-center ml-0">
+                        <a class="btn btn-primary nav-link" href="#MyCollapseCard" data-toggle="collapse" role="button"
+                            aria-expanded="true" aria-controls="MyCollapseCard">
+                            Show Full Information
+                        </a>
+                        <a class="btn btn-success bg-orange nav-link" href="updateAd/">
+                            Update your information
+                        </a>
+                        <a class="btn btn-danger nav-link" href="deleteAd/">
+                            Delete your account
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+<!-- END CONTENT -->
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="../vendor/jquery/jquery.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../vendor/jquery-easing/jquery.easing.js"></script>
+
+<!-- Custom JavaScript-->
+<script src="../js/script.js"></script>
+
+</body>
+</html>

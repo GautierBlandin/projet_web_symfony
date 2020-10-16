@@ -109,14 +109,18 @@ class User implements UserInterface
     private $company;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Applications::class, inversedBy="applicants")
+     * @ORM\OneToMany(targetEntity=Apply::class, mappedBy="user")
      */
-    private $applications;
+    private $applies;
 
-    public function __construct()
+
+
+    public function __construct(
+    )
     {
         $this->adsApplied = new ArrayCollection();
         $this->applications = new ArrayCollection();
+        $this->applies = new ArrayCollection();
     }
 
     public function getUsername()
@@ -327,29 +331,35 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|applications[]
+     * @return Collection|Apply[]
      */
-    public function getApplications(): Collection
+    public function getApplies(): Collection
     {
-        return $this->applications;
+        return $this->applies;
     }
 
-    public function addApplication(applications $application): self
+    public function addApply(Apply $apply): self
     {
-        if (!$this->applications->contains($application)) {
-            $this->applications[] = $application;
+        if (!$this->applies->contains($apply)) {
+            $this->applies[] = $apply;
+            $apply->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeApplication(applications $application): self
+    public function removeApply(Apply $apply): self
     {
-        if ($this->applications->contains($application)) {
-            $this->applications->removeElement($application);
+        if ($this->applies->contains($apply)) {
+            $this->applies->removeElement($apply);
+            // set the owning side to null (unless already changed)
+            if ($apply->getUser() === $this) {
+                $apply->setUser(null);
+            }
         }
 
         return $this;
     }
 
+    
 }

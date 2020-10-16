@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block content %}
+    <div class = "row">
+        {#                        Background Image Column#}
+        <div class = "col-lg-5"> <img src="https/picsum.photos/id/1/300/300"</img></div>
+        {#                        Form Column#}
+        <div class = "col-lg-7">
+            <div class = "p-5 ">
+                <div class = "text-center register-title m-3">
+                    Update your application form !
+                </div>
+                {{ form(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

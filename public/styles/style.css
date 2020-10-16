@@ -13,6 +13,10 @@ html, body{
     z-index: -500;
 }
 
+li{
+    list-style-type: none;
+}
+
 a:hover{
     text-decoration: none;
 }

@@ -18,6 +18,7 @@ class ApplyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        
 
         ->add('firstName',  TextType::class, [
             'label' => 'First Name',
@@ -58,13 +59,16 @@ class ApplyType extends AbstractType
             'placeholder' => 'Phone number'
             ]
         ])
-        ->add('resume', FileType::class, [
+        /*->add('resume', FileType::class, [
             'label' => 'Resume',
             'attr' => [
                 'class' => 'form-control',
-            'placeholder' => 'Upload your resume'
+            'placeholder' => 'Upload your resume',
+            'data_class' => null,
+            'required' => false,
+            'mapped' => false,
             ]
-        ])
+        ])*/
         ->add('save', SubmitType::class, [
             'label' => 'Send Application',
             'attr' => [
