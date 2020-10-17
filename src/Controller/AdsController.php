@@ -5,8 +5,8 @@ namespace App\Controller;
 // ...
 
 use App\Entity\Ads;
-use App\Entity\Applications;
-use App\Form\ApplyFormType;
+use App\Entity\Apply;
+use App\Form\ApplyType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,9 +21,8 @@ class AdsController extends AbstractController
     /**
      * @Route("/ads/create", name="ads")
      */
-    public function createAds()
+    /*public function createAds()
     {
-
     $ads = new Ads();
     $ads->setDescription('Great job, great team, good money');
     $ads->setWage('20000');
@@ -31,24 +30,23 @@ class AdsController extends AbstractController
     $ads->setTitle('Full stack developer');
     $ads->setCreationDate(new \DateTime());
     $ads->setEndDate(\DateTime::createFromFormat('Y-m-d', "2020-12-01"));
-
-
-    $em = $this->getDoctrine()->getManager();    
+    $em = $this->getDoctrine()->getManager();
     $em->persist($ads);
-
     // actually executes the queries (i.e. the INSERT query)
     $em->flush();
-
     return new Response('Saved new ad with id '.$ads->getId());
-}
+}*/
 
 
     /**
      * @Route("/ads", name="ads_show")
      */
-    public function showAds()
+    public function showAds(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $ads = $this->getDoctrine()->getRepository(ads::class)->findAll();
+
+
 
         if (!$ads) {
             throw $this->createNotFoundException(
@@ -60,9 +58,10 @@ class AdsController extends AbstractController
                 // where the key is the variable name and the value is the variable value
                 // (Twig recommends using snake_case variable names: 'foo_bar' instead of 'fooBar')
 
-            'ads' => $ads,
+                'ads' => $ads,
+
             ]);
-        }    
+        }
     }
 
 

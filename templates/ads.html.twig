@@ -4,7 +4,7 @@
     <title>JobsHunter</title>
 
     <!-- Custom fonts for this template-->
-{#    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">#}
+    {#    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">#}
 
     <!-- Custom styles for this template-->
     <link href = "../bootstrap/dist/css/bootstrap.css" rel = "stylesheet" type = "text/css">
@@ -14,53 +14,73 @@
 <body class = "d-flex">
 
 
-<!-- SIDEBAR -->
-    <div class = "sidebar bg-gradient-primary" >
-        <div class = "sidebar-brand">nav title</div>
-        <hr class = "sidebar-divider">
-        <div class = "sidebar-title">title1</div>
-    </div>
-
 <!-- CONTENT -->
-    <div class = "custom-row flex-fill">
-        <!-- TOPBAR -->
-        <div class = "col-sm-12">
-            <div class = "topbar row">
-                <div class = "col-sm-7">
-                    <div class="searchBar">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+<div class = "custom-row flex-fill">
+    <div class = col-sm-12>
+        <nav class="navbar navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">JobsHunter</a>
+            <ul class="list-group-horizontal navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Our current ads<span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="userMenu" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account information
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="userMenu">See your profile</a>
+                        <a class="dropdown-item" href="/updateUser/{id}">Update your profile</a>
+                        <a class="dropdown-item" href="userMenu">See your applications</a>
                     </div>
-                    <div>
-                        <button class = "btn btn-primary searchBarButton">Search</button>
-                    </div>
-                </div>
-                <div class = col-sm-5>
-                    <div class="p-3">
-                    {% if app.user %}
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About us</a>
+                </li>
+            </ul>
+
+            <span class="navbar-text">
+                        {% if app.user %}
                             Welcome {{ app.user.getFirstName() }} <a href="{{ path('app_logout') }}">Logout</a>
-                    {% else %}
-                        <a href="{{ path('app_login') }}">Login</a>
-                    {% endif %}
-                    </div>
+                        {% else %}
+                            <a href="{{ path('app_login') }}">Login</a> or <a href="{{ path('registerPage') }}">Register</a>
+                        {% endif %}
+                        </span>
+    </nav>
+</div>
+
+    <!-- TOPBAR -->
+    <div class = "col-sm-12">
+        <div class = "topbar row">
+            <div class = "col-sm-7">
+                <div class="searchBar">
+                    <input type="text" id = "textSearch" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                </div>
+                <div>
+                    <button id = "searchButton" class = "btn btn-primary searchBarButton">Search</button>
                 </div>
             </div>
+            <div class = col-sm-5>
+            </div>
         </div>
-        <!-- END TOPBAR -->
-        <div class = "col-sm-12">
+    </div>
+    <!-- END TOPBAR -->
+    <div class = "col-sm-12">
         <!-- ADS -->
         {% for ad in ads %}
-            <div class = "card advertCard">
+            <div class = "card advertCard advertBody">
                 <div class = "card-header">
                     <div class = row>
                         <div class = "col-sm-10">
                             <div class = "d-inline-block pt-2 pl-3">
-                                 <span class = "advert" > {{ ad.getTitle() }} </span>
+                                <span class = "advert advertTitle" > {{ ad.getTitle() }} </span>
                             </div>
 
                             <div class = "d-inline-block pt-2 pl-3 pb-2 text-justify magic">
                                 <span>
                                     {{ ad.getDescription() }}
-{#                                    But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?#}
+                                    {#                                    But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?#}
                                     </span>
                             </div>
                         </div>
@@ -81,7 +101,7 @@
                     <div class = row>
                         <div class = "col-sm-12 col-md-5">
                             <div class = "pl-2 pt-2" style = "min-height : 7rem">
-{#                                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?#}
+                                {#                                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?#}
                                 {{ ad.getDescription() }}
                             </div>
                         </div>
@@ -94,35 +114,9 @@
                         </div>
                         <div class ="col-sm-12 col-md-2 d-flex align-items-center justify-content-center">
                             <div class = "align-middle d-inline-block">
-                                <button class="btn btn-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Apply
+                                <button type="button" class="btn btn-success">
+                                    <a href={{ path('applyForm',{id: ad.id }) }} class="btn btn-success">Apply</a>
                                 </button>
-                                <div class="dropdown-menu applyForm" aria-labelledby="dropdownMenuButton">
-                                    <form>
-                                        <div class="mb-1">
-                                            <label for="InputEmail1">Email address :</label>
-                                            <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                        </div>
-                                        <div class="mb-1">
-                                            <label for="inputFirstName">First Name :</label>
-                                            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
-                                        </div>
-                                        <div class="mb-1">
-                                            <label for="inputLastName">Last Name :</label>
-                                            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
-                                        </div>
-                                        <div class="mb-1">
-                                            <label for="inputPhone">Phone :</label>
-                                            <input type="text" class="form-control" id="inputPhone" placeholder="Phone">
-                                        </div>
-                                        <div class="mb-1">
-                                            <label for="inputMessage">Message :</label>
-                                            <textarea type="text" rows="5" cols="33" class="form-control" id="inputMessage" placeholder="Message"> </textarea>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
-                                </div>
                             </div>
 
                         </div>
@@ -131,9 +125,9 @@
             </div>
 
         {% endfor %}
-        </div>
-        <!-- END ADS -->
     </div>
+    <!-- END ADS -->
+</div>
 <!-- END CONTENT -->
 
 

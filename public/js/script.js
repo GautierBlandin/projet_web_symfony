@@ -1,11 +1,21 @@
-$('#div1').click(function () {
-    let div2 = $('#div2');
-    if(div2.hasClass('show')){
-        div2.slideToggle();
-        div2.removeClass('show');
-    }else{
-        div2.slideToggle();
-        div2.addClass('show');
-    }
-})
+let searchField = $('#textSearch');
+let searchButton = $('#searchButton');
 
+searchButton.click(function(){
+
+    let divs = $('.advertBody');
+    let spans = $('.advertTitle');
+    divs.each(function(){
+        $(this).hide();
+    })
+
+    if(searchField.val().length > 0){
+        divs = divs.filter(":contains('" + searchField.val() + "')");
+    }
+
+    divs.each(function(){
+        $(this).show();
+    })
+
+    searchField.val('');
+});

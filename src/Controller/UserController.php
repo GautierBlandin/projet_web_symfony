@@ -4,6 +4,7 @@ namespace App\Controller;
 
 // ...
 use App\Entity\User;
+use App\Form\UserAdminCreationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,42 +15,6 @@ use App\Entity\Company;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/User", name="User")
-     */
-    public function createUser(): Response
-    {
-        // you can fetch the EntityManager via $this->getDoctrine()
-        // or you can add an argument to the action: createProduct(EntityManagerInterface $entityManager)
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $user = new user();
-        $user->setAdmin('false');
-        $user->setEmail("muster.mann@test.com");
-        $user->setPassword('');
-        $user->setFirstName('Muster');
-        $user->setLastName('Mann');
-        $user->setAdress('Musterstrasse, musternummer, musterstadt, musterland');
-        $user->setPhoneNumber('');
-        $user->setAge(NULL);
-        $user->setStudies('');
-        $user->setGender('');
-        $user->setExperience('');
-        $user->setResume('');
-        $user->setAvailabilities('');
-        $user->setBiography('');
-
-
-
-        // tell Doctrine you want to (eventually) save the user (no queries yet)
-        $entityManager->persist($user);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
-
-        return new Response('Saved new user with id '.$user->getId());
-        
-        }
 
     /**
      * @Route("/register-menu", name = "registerMenu")
@@ -113,11 +78,6 @@ class UserController extends AbstractController
             $user = $form->getData();
             $user->setAdmin(false);
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            // $entityManager = $this->getDoctrine()->getManager();
-            // $entityManager->persist($task);
-            // $entityManager->flush();
 
             // tells Doctrine you want to (eventually) save the company (no queries yet)
             $em = $this->getDoctrine()->getManager();
@@ -130,6 +90,63 @@ class UserController extends AbstractController
         }
 
         return $this->render('register-user.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/deleteUser/{userId}", name="user_delete")
+     */
+    public function deleteAds($userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No ads found for id '.$userId
+            );
+        }
+        else{
+            $em->remove($user);
+            $em->flush();
+            return $this->redirect($this->generateUrl('admin_menu'));
+        }
+    }
+
+    /**
+     * @Route("/createUser", name = "create_user")
+     * @Route("/updateUser/{id}", name = "update_user")
+     */
+    public function createUser(User $user = null, Request $request){
+        // just setup a fresh $task object (remove the example data)
+
+
+        $newUser = false;
+        if(!$user){
+            $user = new User();
+            $newUser = true;
+        }
+
+        $form = $this->createForm(UserAdminCreationType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $user = $form->getData();
+
+            // tells Doctrine you want to (eventually) save the company (no queries yet)
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+
+            // actually executes the queries (i.e. the INSERT query)
+            $em->flush();
+
+            return $this->redirectToRoute("admin_menu");
+        }
+
+        return $this->render('admin_cms/admin-user-creation.html.twig', [
             'form' => $form->createView(),
         ]);
     }

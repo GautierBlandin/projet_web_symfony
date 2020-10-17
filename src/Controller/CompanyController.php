@@ -7,7 +7,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Ads;
 use App\Entity\Company;
+use App\Form\CompanyAdminCreationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,28 +58,43 @@ class CompanyController extends AbstractController
 
 
     /**
-     * @Route("/company/update/{companyId}", name="company_update")
+     * @Route("/createCompany", name = "create_company")
+     * @Route("/updateCompany/{id}", name="company_update")
      */
-    public function updateCompany($companyId)
+    public function updateCompany(Company $company = null, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $company = $em->getRepository(Company::class)->find($companyId);
+
+        $newCompany = false;
 
         if (!$company) {
-            throw $this->createNotFoundException(
-                'No company found for id '.$companyId
-            );
+            $company = new Company();
+            $newCompany = true;
         }
-        else{
-            $company->setName('New name!');
+
+        $form = $this->createForm(CompanyAdminCreationType::class, $company);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $company = $form->getData();
+
+            // tells Doctrine you want to (eventually) save the company (no queries yet)
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($company);
+
             $em->flush();
-            return new Response('Changed company name');
+
+            return $this->redirectToRoute("admin_menu");
         }
+
+        return $this->render('admin_cms/admin-user-creation.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
-
     /**
-     * @Route("/company/delete/{companyId}", name="company_delete")
+     * @Route("/deleteCompany/{companyId}", name="company_delete")
      */
     public function deleteCompany($companyId)
     {
@@ -92,7 +109,7 @@ class CompanyController extends AbstractController
         else{
             $em->remove($company);
             $em->flush();
-            return new Response('deleted this company in database');
+            return $this->redirectToRoute('adminMenu');
         }
     }
 }
