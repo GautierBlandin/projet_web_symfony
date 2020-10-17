@@ -117,7 +117,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/createUser", name = "create_user")
-     * @Route("/updateUser/{id}", name = "update_user")
+     * @Route("/updateUserAdmin/{id}", name = "update_user")
      */
     public function createUser(User $user = null, Request $request){
         // just setup a fresh $task object (remove the example data)

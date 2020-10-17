@@ -52,7 +52,7 @@ class ApplyController extends AbstractController
             // where the key is the variable name and the value is the variable value
             // (Twig recommends using snake_case variable names: 'foo_bar' instead of 'fooBar')
             'form' => $form->createView(),
-
+            'user' => $this->getUser(),
         ]);
 
     }

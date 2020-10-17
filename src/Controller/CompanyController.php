@@ -90,6 +90,7 @@ class CompanyController extends AbstractController
 
         return $this->render('admin_cms/admin-user-creation.html.twig', [
             'form' => $form->createView(),
+            'user' => $this->getUser(),
         ]);
     }
 

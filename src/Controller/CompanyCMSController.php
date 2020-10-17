@@ -20,14 +20,31 @@ class CompanyCMSController extends AbstractController
 
     public function index()
     {
+
+
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(User::class)->findOneByEmail($this->getUser()->getUsername());
+
+        $user = $this->getUser();
+
+
+        $authorized = false;
+
+        if(!$user);
+        else if($user->getRole() == 'admin') $authorized = true;
+        else if($user->getRole() == 'contact') $authorized = true;
+
+        if(!$authorized){
+            return $this->redirectToRoute('ads_show');
+        }
+
+//        $user = $em->getRepository(User::class)->findOneByEmail($this->getUser()->getUsername());
         $company = $user -> getCompany();
         $ads = $company ->getJobads();
 
         return $this->render('company_cms/company-menu.html.twig', [
             'controller_name' => 'CompanyCMSController',
             'ads' => $ads,
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -36,8 +53,6 @@ class CompanyCMSController extends AbstractController
      */
     public function deleteAd($id){
 
-
-
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository(Ads::class)->find($id);
 
@@ -45,9 +60,10 @@ class CompanyCMSController extends AbstractController
 
         $user = $this->getUser();
 
-        if($user.getRole() == 'admin') $authorized = true;
-        else if($user.getRole() == 'contact'){
-            if($user.getCompany() == $ad.getCompany()) $authorized = true;
+        if(!$user);
+        else if($user->getRole() == 'admin') $authorized = true;
+        else if($user->getRole() == 'contact'){
+            if($user->getCompany() == $ad->getCompany()) $authorized = true;
         }
 
         if(!$authorized){
@@ -61,6 +77,8 @@ class CompanyCMSController extends AbstractController
         $em->remove($ad);
         $em->flush();
 
+        if($user->getRole() == 'admin') return $this->redirect($this->generateUrl('admin_menu'));
+
         return $this->redirect($this->generateUrl('companyMenu'));
     }
 
@@ -68,16 +86,37 @@ class CompanyCMSController extends AbstractController
      * @Route("/updateAd/{id}", name="updateAd")
      * @Route("/createAd", name = "create_ad")
      */
+
     public function updateAd(Ads $ad = null, Request $request){
 
         $em = $this->getDoctrine()->getManager();
 //        $ad = $em->getRepository(Ads::class)->find($id);
         $newAd = false;
-
+        $authorized = false;
 
         if (!$ad) {
             $ad = new Ads();
             $newAd = true;
+        }
+
+        $user = $this->getUser();
+
+        if($newAd) {
+            if (!$user);
+            else if ($user->getRole() == 'admin') $authorized = true;
+            else if ($user->getRole() == 'contact') $authorized = true;
+        }
+
+        if(!$newAd) {
+            if (!$user);
+            else if ($user->getRole() == 'admin') $authorized = true;
+            else if ($user->getRole() == 'contact') {
+                if ($user->getCompany() == $ad->getCompany()) $authorized = true;
+            }
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('ads_show');
         }
 
         $form = $this->createForm(JobAdType::class, $ad);
@@ -98,11 +137,14 @@ class CompanyCMSController extends AbstractController
             $em->persist($ad);
             $em->flush();
 
+
+
             return $this->redirectToRoute('companyMenu');
         }
 
         return $this->render('company_cms/update-form.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $this->getUser(),
         ]);
     }
 }

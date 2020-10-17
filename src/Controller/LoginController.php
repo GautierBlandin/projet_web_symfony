@@ -16,10 +16,18 @@ class LoginController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        $user = $this->getUser();
 
-        if ($this->getUser()) {
+        if(!$user);
+        else if ($user->getRole() == 'user') {
              return $this->redirectToRoute('ads_show');
          }
+        else if($user->getRole() == 'contact'){
+            return $this->redirectToRoute('companyMenu');
+        }
+        else if($user->getRole() == 'admin'){
+            return $this->redirectToRoute('admin_menu');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

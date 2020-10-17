@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Entity\Apply;
+use App\Entity\Company;
 use App\Entity\Ads;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,6 +24,18 @@ class UserCMSController extends AbstractController
 
     public function index()
     {
+        $authorized = false;
+        $user = $this->getUser();
+
+        if(!$user);
+        else if(($user->getRole() == 'admin')){
+            $authorized = true;
+        }else if(($user->getRole() == 'user')){
+            $authorized = true;
+        }
+
+        if(!$authorized) return $this->redirectToRoute('ads_show');
+
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->findOneByEmail($this->getUser()->getUsername());
         $applications = $user->getApplies();
@@ -32,7 +45,7 @@ class UserCMSController extends AbstractController
         }*/
         return $this->render('user_cms/user-menu.html.twig', [
             'controller_name' => 'UserCMSController',
-            'user' => $user,
+            'user' => $this->getUser(),
             'applications' => $applications,
 
         ]);
@@ -45,6 +58,21 @@ class UserCMSController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $apply = $em->getRepository(Apply::class)->find($id);
+
+        $authorized = false;
+
+        $user = $this->getUser();
+
+        if(!$user);
+        else if($user->getRole() == 'admin') $authorized = true;
+        else if($user->getRole() == 'user'){
+            if($apply->getUser() == $user) $authorized = true;
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('userMenu');
+        }
+
 
         if (!$apply) {
             throw $this->createNotFoundException('No apply found');
@@ -64,6 +92,20 @@ class UserCMSController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $apply = $em->getRepository(Apply::class)->find($id);
 
+        $authorized = false;
+
+        $user = $this->getUser();
+
+        if(!$user);
+        else if($user->getRole() == 'admin') $authorized = true;
+        else if($user->getRole() == 'user'){
+            if($apply->getUser() == $user) $authorized = true;
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('userMenu');
+        }
+
         if (!$apply) {
             throw $this->createNotFoundException('No application found');
         }
@@ -80,6 +122,21 @@ class UserCMSController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
         $apply = $em->getRepository(Apply::class)->find($id);
+
+        $authorized = false;
+
+        $user = $this->getUser();
+
+        if(!$user);
+        else if($user->getRole() == 'admin') $authorized = true;
+        else if($user->getRole() == 'user'){
+            if($apply->getUser() == $user) $authorized = true;
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('userMenu');
+        }
+
         $newApply = false;
 
         $form = $this->createForm(ApplyType::class, $apply);
@@ -98,7 +155,8 @@ class UserCMSController extends AbstractController
         }
 
         return $this->render('user_cms/update-form.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $this->getUser(),
         ]);
     }
 
@@ -111,6 +169,20 @@ class UserCMSController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->find($id);
 
+        $authorized = false;
+
+        $user = $this->getUser();
+
+        if(!$user);
+        else if($user->getRole() == 'admin') $authorized = true;
+        else if($user->getRole() == 'user'){
+            if($user->getId() == $id) $authorized = true;
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('ads_show');
+        }
+
         $em->remove($user);
         $em->flush();
 
@@ -121,10 +193,23 @@ class UserCMSController extends AbstractController
     /**
      * @Route("/updateUser/{id}", name="updateUser")
      */
-    public function updateUser(User $user, Request $request, $id){
+    public function updateUser(Request $request, $id){
 
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->find($id);
+
+        $authorized = false;
+        $loggedUser = $this->getUser();
+
+        if(!$loggedUser);
+        else if($loggedUser->getRole() == 'admin') $authorized = true;
+        else if($loggedUser->getRole() == 'user'){
+            if($loggedUser->getId() == $user->getId()) $authorized = true;
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('ads_show');
+        }
 
         $newUser = false;
 
@@ -143,18 +228,28 @@ class UserCMSController extends AbstractController
         }
 
         return $this->render('user_cms/update-user.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $this->getUser(),
         ]);
     }
 
     /**
-     * @Route("/updateUserAdmin/{id}", name="updateUser")
+     * @Route("/updateUserAdmin/{id}", name="updateUserAdmin")
      */
     public function updateUserAdmin(Request $request, $id){
 
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository(User::class)->find($id);
 
+        $authorized = false;
+        $loggedUser = $this->getUser();
+
+        if(!$loggedUser);
+        else if($loggedUser->getRole() == 'admin') $authorized = true;
+
+        if(!$authorized){
+            return $this->redirectToRoute('ads_show');
+        }
 
         $form = $this->createForm(UserAdminCreationType::class, $user);
 
@@ -171,7 +266,8 @@ class UserCMSController extends AbstractController
         }
 
         return $this->render('admin_cms/admin-user-creation.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $this->getUser(),
         ]);
     }
 }

@@ -43,6 +43,7 @@ class AdminCMSController extends AbstractController
             'companies' => $companies,
             'ads' => $ads,
             'applications' => $applications,
+            'user' => $this->getUser(),
         ]);
     }
 }
