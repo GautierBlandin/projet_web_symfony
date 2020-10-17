@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ApplyType;
+use App\Form\UserAdminCreationType;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -142,6 +143,34 @@ class UserCMSController extends AbstractController
         }
 
         return $this->render('user_cms/update-user.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/updateUserAdmin/{id}", name="updateUser")
+     */
+    public function updateUserAdmin(Request $request, $id){
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+
+
+        $form = $this->createForm(UserAdminCreationType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $user = $form->getData();
+
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('userMenu');
+        }
+
+        return $this->render('admin_cms/admin-user-creation.html.twig', [
             'form' => $form->createView()
         ]);
     }

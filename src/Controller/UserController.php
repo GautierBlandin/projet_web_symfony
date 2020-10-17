@@ -42,6 +42,7 @@ class UserController extends AbstractController
             // but, the original `$task` variable has also been updated
             $user = $form->getData();
             $user->setAdmin(false);
+            $user->setRole('contact');
             $company = $user->getCompany();
 
             // tells Doctrine you want to (eventually) save the company (no queries yet)
@@ -77,7 +78,7 @@ class UserController extends AbstractController
             // but, the original `$task` variable has also been updated
             $user = $form->getData();
             $user->setAdmin(false);
-
+            $user->setRole('user');
 
             // tells Doctrine you want to (eventually) save the company (no queries yet)
             $em = $this->getDoctrine()->getManager();

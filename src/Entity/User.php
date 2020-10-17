@@ -34,6 +34,11 @@ class User implements UserInterface
     private $admin;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $role;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -130,8 +135,16 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        $array = ['0' => 'user', '1' => 'admin'];
+        $array = ['0' => 'user', '1' => 'contact', '2' => 'admin'];
         return $array;
+    }
+
+    public function getRole(){
+        return $this->role;
+    }
+
+    public function setRole($role){
+        $this->role = $role;
     }
 
     public function eraseCredentials()

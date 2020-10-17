@@ -36,8 +36,23 @@ class CompanyCMSController extends AbstractController
      */
     public function deleteAd($id){
 
+
+
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository(Ads::class)->find($id);
+
+        $authorized = false;
+
+        $user = $this->getUser();
+
+        if($user.getRole() == 'admin') $authorized = true;
+        else if($user.getRole() == 'contact'){
+            if($user.getCompany() == $ad.getCompany()) $authorized = true;
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('ads_show');
+        }
 
         if (!$ad) {
             throw $this->createNotFoundException('No Ad found');

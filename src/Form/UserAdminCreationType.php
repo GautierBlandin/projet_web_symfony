@@ -14,6 +14,7 @@ class UserAdminCreationType extends AbstractType
     {
         $builder
             ->add('admin')
+            ->add('role')
             ->add('email')
             ->add('password')
             ->add('firstName')

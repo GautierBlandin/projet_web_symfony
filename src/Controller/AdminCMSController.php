@@ -16,6 +16,18 @@ class AdminCMSController extends AbstractController
      * @Route("/adminMenu", name="admin_menu")
      */
     public function show_admin_menu(){
+        $authorized = true;
+        $user = $this->getUser();
+
+        if(!$user){
+            $authorized = false;
+        }else if(!($user->getRole() == 'admin')){
+            $authorized = false;
+        }
+
+        if(!$authorized) return $this->redirectToRoute('ads_show');
+
+
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository(User::class)->findAll();
         $companies = $em->getRepository(Company::class)->findAll();
