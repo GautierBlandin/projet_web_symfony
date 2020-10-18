@@ -21,7 +21,7 @@ class UserAdminCreationType extends AbstractType
             ->add('lastName')
             ->add('adress')
             ->add('phoneNumber')
-            ->add('age')
+            ->add('birthdate')
             ->add('studies')
             ->add('gender')
             ->add('experience')

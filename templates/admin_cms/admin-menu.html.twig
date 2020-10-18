@@ -1,42 +1,10 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-    <title>JobsHunter</title>
+{% extends 'pageBase.html.twig' %}
 
-    <!-- Custom fonts for this template-->
-    {#    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">#}
-
-    <!-- Custom styles for this template-->
-    <link href = "../bootstrap/dist/css/bootstrap.css" rel = "stylesheet" type = "text/css">
-    <link href = "../styles/style.css" rel = "stylesheet" type = "text/css">
-</head>
-
-<body class = "d-flex">
-
-
-<!-- SIDEBAR -->
-
-<!--END SIDEBAR -->
-
+{% block content %}
 <!-- CONTENT -->
 <div class = "custom-row flex-fill">
     <!-- TOPBAR -->
-    <div class = "col-sm-12">
-        <div class = "topbar row">
-            <div class = "col-sm-7 text-center">
-                Admin Panel
-            </div>
-            <div class = col-sm-5>
-                <div class="p-3">
-                    {% if app.user %}
-                        Welcome {{ app.user.getFirstName() }} <a href="{{ path('app_logout') }}">Logout</a>
-                    {% else %}
-                        <a href="{{ path('app_login') }}">Login</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- END TOPBAR -->
 
     <div class = "col-sm-12">
@@ -95,7 +63,7 @@
                     First Name : {{ user.getFirstName() }} <br>
                     Last Name : {{ user.getLastName() }} <br>
                     Address : {{ user.getAdress }} <br>
-                    Age : {{ user.getAge() }}
+                    Age : {{ user.getBirthdate() }}
                 </div>
                 <div class = col-sm-3>
                     <a class="btn btn-danger nav-link" href="deleteUser/{{user.id}}">
@@ -182,16 +150,4 @@
 </div>
 <!-- END CONTENT -->
 
-
-<!-- Bootstrap core JavaScript-->
-<script src="../vendor/jquery/jquery.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="../vendor/jquery-easing/jquery.easing.js"></script>
-
-<!-- Custom JavaScript-->
-<script src="../js/script.js"></script>
-
-</body>
-</html>
+{% endblock %}
