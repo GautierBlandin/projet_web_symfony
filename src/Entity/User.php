@@ -69,9 +69,9 @@ class User implements UserInterface
     private $phoneNumber;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $age;
+    private $birthdate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -246,14 +246,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAge(): ?int
+    public function getBirthdate(): ?\DateTimeInterface
     {
-        return $this->age;
+        return $this->birthdate;
     }
 
-    public function setAge(?int $age): self
+    public function setBirthdate(?\DateTimeInterface $birthdate): self
     {
-        $this->age = $age;
+        $this->birthdate = $birthdate;
 
         return $this;
     }
@@ -294,7 +294,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getResume(): ?string
+    /*public function getResume(): ?string
     {
         return $this->resume;
     }
@@ -304,7 +304,7 @@ class User implements UserInterface
         $this->resume = $resume;
 
         return $this;
-    }
+    }*/
 
     public function getAvailabilities(): ?string
     {

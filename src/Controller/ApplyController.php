@@ -23,7 +23,23 @@ class ApplyController extends AbstractController
 
         $apply = new Apply();
         $user = $this->getDoctrine()->getRepository(User::class);
-        $ads = $this->getDoctrine()->getRepository(Ads::class);
+        $ads = $this->getDoctrine()->getRepository(Ads::class); 
+        
+        $authorized = false;
+        $user = $this->getUser();
+
+        if(!$user);
+        else if($user){
+            $authorized = true;
+        }
+
+        if(!$authorized) return $this->redirectToRoute('ads_show');
+
+        
+        $apply->setFirstName($this->getUser()->getFirstName());
+        $apply->setLastName($this->getUser()->getLastName());
+        $apply->setEmail($this->getUser()->getEmail());
+        $apply->setPhone($this->getUser()->getPhoneNumber());
 
         $form = $this->createForm(ApplyType::class, $apply);
         $form->handleRequest($request);
@@ -32,6 +48,7 @@ class ApplyController extends AbstractController
             $apply = $form->getData();
             $apply->setCreatedAt(new \DateTime('now'));
             $apply->setUpdatedAt(NULL);
+            
             $ad = $ads->findOneById($id);
             $apply->setAd($ad);
 

@@ -38,13 +38,53 @@
                         </div>
                     </div>
                     <div class = col-lg-12>
-                        <div class = 'register-button m-2 p-2 text-center'>
+                        <div class = 'register-input m-2 p-2 text-center'>
+                            {{ form_row(form.adress) }}
+                        </div>
+                    </div>
+                    <div class = col-lg-6>
+                        <div class = 'register-input m-2 p-2 text-left'>
+                            {{ form_row(form.phoneNumber) }}
+                        </div>
+                    </div>
+                    <div class = col-lg-6>
+                        <div class = 'register-input m-2 p-2 text-center'>
+                            {{ form_row(form.birthdate) }}
+                        </div>
+                    </div>
+                    <div class = col-lg-6>
+                        <div class = 'register-input m-2 p-2 text-left'>
+                            {{ form_row(form.studies) }}
+                        </div>
+                    </div>
+                    <div class = col-lg-6>
+                        <div class = 'register-input m-2 p-2 text-left'>
+                            {{ form_row(form.gender) }}
+                        </div>
+                    </div>
+                    <div class = col-lg-12>
+                        <div class = 'register-input m-2 p-2 text-left'>
+                            {{ form_row(form.experience) }}
+                        </div>
+                    </div>
+                    <div class = col-lg-12>
+                        <div class = 'register-input m-2 p-2 text-left'>
+                            {{ form_row(form.availabilities) }}
+                        </div>
+                    </div>
+                    <div class = col-lg-12>
+                        <div class = 'register-input m-2 p-2 text-left'>
+                            {{ form_row(form.biography) }}
+                        </div>
+                    </div>
+                    <div class = col-lg-6>
+                        <div class = 'register-button m-2 p-2 text-left'>
                             {{ form_row(form.register) }}
                         </div>
                     </div>
                     {{ form_end(form) }}
-                    <div class = "col-lg-12 text-right">
-                        <div class = "pr-2">
+                    <div class = col-lg-6>
+                        <div class = "register m-2 p-2 text-center">
                             <a href = {{ path('registerCompany') }}> Working for a company ? Register here</a>
                         </div>
                     </div>

@@ -10,6 +10,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 
@@ -21,7 +25,22 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', TextType::class, [
+            ->add('first_name', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'First Name',
+                    'class' => 'register-input-field'
+                ]
+            ])
+            ->add('last_name', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Last Name',
+                    'class' => 'register-input-field'
+                ]
+            ])
+
+            ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Email Address',
@@ -44,20 +63,7 @@ class UserType extends AbstractType
                         'class' => 'register-input-field'
                     ]],
             ])
-            ->add('first_name', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'First Name',
-                    'class' => 'register-input-field'
-                ]
-            ])
-            ->add('last_name', TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Last Name',
-                    'class' => 'register-input-field'
-                ]
-            ])
+            
             ->add('adress', TextType::class, [
                 'label' => false,
                 'attr' => [
@@ -65,49 +71,85 @@ class UserType extends AbstractType
                     'class' => 'register-input-field'
                 ]
             ])
-            ->add('phoneNumber', telType::class, [
+            ->add('phoneNumber', TelType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Phone Number',
                     'class' => 'register-input-field'
                 ]
             ])
-            ->add('age', TextType::class, [
+            ->add('birthdate', BirthdayType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Age',
+                    'placeholder' => 'DD/MM/YYYY',
                     'class' => 'register-input-field'
                 ]
             ])
-            ->add('studies', TextType::class, [
+            ->add('studies', ChoiceType::class, [
                 'label' => false,
+                'choices' => [
+                    'Humanities ' => [
+                        'Arts' => 'Arts',
+                        'History' => 'History',
+                        'Languages and literature' => 'Languages and literature',
+                        'Law' => 'Law',
+                        'Philosophy' => 'Philosophy',
+                        'Theology' => 'Theology',
+                    ],
+                    'Social Sciences' => [
+                        'Anthropology' => 'Anthropology',
+                        'Economics' => 'Economics',
+                        'Geography ' => 'Geography',
+                        'Political science ' => 'Political science',
+                        'Psychology ' => 'Psychology',
+                        'Sociology ' => 'Sociology',
+                    ],
+                    'Natural and Formal Sciences' => [
+                        'Biology ' => 'Biology',
+                        'Chemistry ' => 'Chemistry',
+                        'Earth science ' => 'Earth science',
+                        'Space sciences ' => 'Space sciences',
+                        'Physics ' => 'Physics',
+                        'Computer Science ' => 'Computer Science',
+                        'Mathematics ' => 'Mathematics',
+                    ],
+                    'Applied Sciences' => [
+                        'Business ' => 'Business',
+                        'Engineering and technology ' => 'Engineering and technology',
+                        'Medicine and health ' => 'Medicine and health',
+                    ],
+                ],
                 'attr' => [
-                    'placeholder' => 'Previous studies',
                     'class' => 'register-input-field'
                 ]
             ])
-            ->add('gender', TextType::class, [
+            ->add('gender', ChoiceType::class, [
                 'label' => false,
+                'choices' => [
+                    'Male' => 'Male',
+                    'Female' => 'Female',
+                    'Other' => 'Other',
+                ],
                 'attr' => [
                     'placeholder' => 'Gender',
                     'class' => 'register-input-field'
                 ]
             ])
-            ->add('experience', TextType::class, [
+            ->add('experience', TextareaType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Previous working experience',
                     'class' => 'register-input-field'
                 ]
             ])
-            ->add('availabilities', TextType::class, [
+            ->add('availabilities', TextareaType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Availabilities (per day, week, month..)',
                     'class' => 'register-input-field'
                 ]
             ])
-            ->add('biography', TextType::class, [
+            ->add('biography', TextareaType::class, [
                 'label' => false,
                 'required' => false,
                 'attr' => [

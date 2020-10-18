@@ -45,6 +45,7 @@ class CompanyCMSController extends AbstractController
             'controller_name' => 'CompanyCMSController',
             'ads' => $ads,
             'user' => $this->getUser(),
+            //'applications' => $apply -> getAd(),
         ]);
     }
 
