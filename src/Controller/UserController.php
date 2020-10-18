@@ -27,6 +27,17 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/login-or-register", name = "loginOrRegister")
+     */
+
+    public function login_or_register()
+    {
+        return $this->render('login-or-register.html.twig', [
+        ]);
+    }
+    
+
+    /**
      * @Route("/register-company", name = "registerCompany")
      */
 

@@ -33,7 +33,7 @@ class ApplyController extends AbstractController
             $authorized = true;
         }
 
-        if(!$authorized) return $this->redirectToRoute('ads_show');
+        if(!$authorized) return $this->redirectToRoute('loginOrRegister');
 
         
         $apply->setFirstName($this->getUser()->getFirstName());

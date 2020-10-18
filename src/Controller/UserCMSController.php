@@ -234,6 +234,33 @@ class UserCMSController extends AbstractController
     }
 
     /**
+     * @Route("/showUser/{id}", name="showUser")
+     */
+    public function showUser(Request $request, $id){
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+
+        $authorized = false;
+        $loggedUser = $this->getUser();
+
+        if(!$loggedUser);
+        else if($loggedUser->getRole() == 'admin') $authorized = true;
+        else if($loggedUser->getRole() == 'contact') $authorized = true;
+        else if($loggedUser->getRole() == 'user'){
+            if($loggedUser->getId() == $user->getId()) $authorized = true;
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('ads_show');
+        }
+
+        return $this->render('user_information.html.twig', [
+            'user' => $this->getUser(),
+        ]);
+    }
+
+    /**
      * @Route("/updateUserAdmin/{id}", name="updateUserAdmin")
      */
     public function updateUserAdmin(Request $request, $id){

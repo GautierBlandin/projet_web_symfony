@@ -144,9 +144,8 @@
                     <li><b>Biography:</b> {{ user.getBiography() }} </li> 
                 </ul>
                 <div class="col justify-content-center align-self-center ml-0">
-                    <a class="btn btn-primary nav-link" href="#MyCollapseCard" data-toggle="collapse" role="button"
-                       aria-expanded="true" aria-controls="MyCollapseCard">
-                        Show Full Information
+                    <a class="btn btn-primary nav-link" href="showUser/{{user.id()}}">
+                       Show Full Information
                     </a>
                     <a class="btn btn-success bg-orange nav-link" href="updateUser/{{user.id()}}">
                         Update your information
