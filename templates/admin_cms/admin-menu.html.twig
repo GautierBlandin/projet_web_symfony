@@ -141,7 +141,7 @@
         {% endfor %}
         <div class = row >
             <div class = "col-sm-12 text-center title">
-                Companies
+                Applications
             </div>
             <div class = col-sm-12>
                 <a class="btn btn-success nav-link" href="">
@@ -151,16 +151,27 @@
         </div>
         {% for application in applications %}
             <div class = "row border">
-                <div class = col-sm-6>
-                    ID : {{ application.getId() }} <br>
+                <div class = "col-sm-9">
+                    <div class = row>
+                        <div class = col-sm-6>
+                            ID : {{ application.getId() }} <br>
+                            Email : {{ application.getEmail() }}<br>
+                            Phone Number : {{ application.getPhone() }}
+                        </div>
+                        <div class = col-sm-6>
+                            First Name : {{ application.getFirstName() }} <br>
+                            Last Name : {{ application.getLastName() }} <br>
+                        </div>
+                        <div class = col-sm-12>
+                            Message : {{ application.getMessage() }}
+                        </div>
+                    </div>
                 </div>
                 <div class = col-sm-3>
-                </div>
-                <div class = col-sm-3>
-                    <a class="btn btn-danger nav-link" href="">
+                    <a class="btn btn-danger nav-link" href="/deleteApplication/{{ application.getId() }}">
                         Delete
                     </a>
-                    <a class="btn btn-success bg-orange nav-link" href="">
+                    <a class="btn btn-success bg-orange nav-link" href="/updateApplication/{{ application.getId() }}">
                         Update
                     </a>
                 </div>

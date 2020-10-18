@@ -109,7 +109,7 @@
                                     {{ application.getAd().getDescription() }}
                                     {{ application.getAd().getWage() }}
                                     {{ application.getAd().getPlace() }}
-                                    {{ application.getAd().getCompany() }}
+                                    {{ application.getAd().getCompany().getName() }}
                                     {{ application.getAd().getCreationDate()|date("d/m/Y")  }}
                                     {{ application.getAd().getEndDate()|date("d/m/Y")  }}
                                 </div>
@@ -136,17 +136,15 @@
                     <li><b>Password:</b> {{ user.getPassword() }} </li>
                     <li><b>Phone number:</b> {{ user.getPhoneNumber() }} </li>
                     <li><b>Adress:</b> {{ user.getAdress() }} </li>
-                    <li><b>Age:</b> {{ user.getAge() }} </li>
+                    <li><b>Age:</b> {{ user.getBirthdate()|date("d/m/Y") }} </li>
                     <li><b>Gender:</b> {{ user.getGender() }} </li>
                     <li><b>Studies:</b> {{ user.getStudies() }} </li>
                     <li><b>Previous working experience:</b> {{ user.getExperience() }} </li>
-                    <!-- <li><b>Resume:</b> {{ user.getResume() }} </li>
                     <li><b>Availabilities:</b> {{ user.getAvailabilities() }} </li>
-                    <li><b>Biography:</b> {{ user.getBiography() }} </li> -->
+                    <li><b>Biography:</b> {{ user.getBiography() }} </li>
                 </ul>
                 <div class="col justify-content-center align-self-center ml-0">
-                    <a class="btn btn-primary nav-link" href="#MyCollapseCard" data-toggle="collapse" role="button"
-                       aria-expanded="true" aria-controls="MyCollapseCard">
+                    <a class="btn btn-primary nav-link" href="showUser/{{user.id()}}">
                         Show Full Information
                     </a>
                     <a class="btn btn-success bg-orange nav-link" href="updateUser/{{user.id()}}">

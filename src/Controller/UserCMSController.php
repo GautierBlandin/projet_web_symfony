@@ -73,13 +73,16 @@ class UserCMSController extends AbstractController
             return $this->redirectToRoute('userMenu');
         }
 
-
         if (!$apply) {
             throw $this->createNotFoundException('No apply found');
         }
 
+        $apply->getAd()->removeApplication($apply);
+
         $em->remove($apply);
         $em->flush();
+
+        if($user->getRole() == 'admin') return $this->redirect($this->generateUrl('admin_menu'));
 
         return $this->redirect($this->generateUrl('userMenu'));
     }
@@ -183,6 +186,14 @@ class UserCMSController extends AbstractController
             return $this->redirectToRoute('ads_show');
         }
 
+        $applications = $user->getApplies();
+
+        foreach($applications as $application){
+            $application->getAd()->removeApplication($application);
+            $user->removeApply($application);
+            $em->remove($application);
+        }
+
         $em->remove($user);
         $em->flush();
 
@@ -229,6 +240,33 @@ class UserCMSController extends AbstractController
 
         return $this->render('user_cms/update-user.html.twig', [
             'form' => $form->createView(),
+            'user' => $this->getUser(),
+        ]);
+    }
+
+    /**
+     * @Route("/showUser/{id}", name="showUser")
+     */
+    public function showUser(Request $request, $id){
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+
+        $authorized = false;
+        $loggedUser = $this->getUser();
+
+        if(!$loggedUser);
+        else if($loggedUser->getRole() == 'admin') $authorized = true;
+        else if($loggedUser->getRole() == 'contact') $authorized = true;
+        else if($loggedUser->getRole() == 'user'){
+            if($loggedUser->getId() == $user->getId()) $authorized = true;
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('ads_show');
+        }
+
+        return $this->render('user_information.html.twig', [
             'user' => $this->getUser(),
         ]);
     }

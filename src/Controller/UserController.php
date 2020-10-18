@@ -27,6 +27,16 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/login-or-register", name = "loginOrRegister")
+     */
+    public function login_or_register()
+    {
+        return $this->render('login-or-register.html.twig', [
+        ]);
+    }
+
+
+    /**
      * @Route("/register-company", name = "registerCompany")
      */
 
@@ -95,25 +105,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/deleteUser/{userId}", name="user_delete")
-     */
-    public function deleteAds($userId)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(User::class)->find($userId);
-
-        if (!$user) {
-            throw $this->createNotFoundException(
-                'No ads found for id '.$userId
-            );
-        }
-        else{
-            $em->remove($user);
-            $em->flush();
-            return $this->redirect($this->generateUrl('admin_menu'));
-        }
-    }
 
     /**
      * @Route("/createUser", name = "create_user")

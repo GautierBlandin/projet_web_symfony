@@ -44,8 +44,4 @@ class AdsController extends AbstractController
             ]);
         }
     }
-
-
-
-
 }

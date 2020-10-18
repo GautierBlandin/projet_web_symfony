@@ -103,14 +103,15 @@ class CompanyController extends AbstractController
         $company = $em->getRepository(Company::class)->find($companyId);
 
         if (!$company) {
-            throw $this->createNotFoundException(
-                'No company found for id '.$companyId
-            );
+            return $this->redirectToRoute('admin_menu');
+//            throw $this->createNotFoundException(
+//                'No company found for id '.$companyId
+//            );
         }
         else{
             $em->remove($company);
             $em->flush();
-            return $this->redirectToRoute('adminMenu');
+            return $this->redirectToRoute('admin_menu');
         }
     }
 }

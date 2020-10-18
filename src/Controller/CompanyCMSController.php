@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Apply;
 use App\Form\JobAdType;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,6 +50,41 @@ class CompanyCMSController extends AbstractController
     }
 
     /**
+     * @Route("/applicationCompanyMenu/{id}", name="application_company_menu")
+     */
+
+    public function show_application_for_ad(Ads $ad)
+    {
+
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->getUser();
+
+
+        $authorized = false;
+
+        if(!$user);
+        else if($user->getRole() == 'admin') $authorized = true;
+        else if($user->getRole() == 'contact'){
+            if($ad->getCompany() == $user->getCompany()) $authorized = true;
+        }
+
+        if(!$authorized){
+            return $this->redirectToRoute('ads_show');
+        }
+
+//        $applications = $em->getRepository(Apply::class)->findById($ad->getApplications());
+
+        return $this->render('company_cms/ad_applications.html.twig', [
+            'controller_name' => 'CompanyCMSController',
+            'user' => $this->getUser(),
+            'ad' => $ad,
+//            'applications' => $applications,
+        ]);
+    }
+
+    /**
      * @Route("/deleteAd/{id}", name="deleteAd")
      */
     public function deleteAd($id){
@@ -72,6 +108,11 @@ class CompanyCMSController extends AbstractController
 
         if (!$ad) {
             throw $this->createNotFoundException('No Ad found');
+        }
+
+        foreach($ad->getApplications() as $application){
+            $ad->removeApplication($application);
+            $em->remove($application);
         }
 
         $em->remove($ad);
@@ -147,4 +188,6 @@ class CompanyCMSController extends AbstractController
             'user' => $this->getUser(),
         ]);
     }
+
+
 }

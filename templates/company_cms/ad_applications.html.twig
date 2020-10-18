@@ -1,22 +1,11 @@
-
-{% extends "pageBase.html.twig" %}
+{% extends 'pageBase.html.twig' %}
 {% block content %}
-<div class = row>
-    <div class = "col-sm-12 text-center title">
-        <h3>Published job offers</h3>
-    </div>
-    <div class = col-sm-12>
-        <a class="btn btn-success nav-link" href="{{ path('create_ad') }}">
-            Create Ad
-        </a>
-    </div>
-    <div class = "col-sm-12">
-        <!-- ADS -->
-        {% for ad in ads %}
+    <div class = "row">
+        <div class = col-sm-12>
             <div class = "card advertCard">
                 <div class = "card-header">
                     <div class = row>
-                        <div class = "col-sm-9">
+                        <div class = "col-sm-10">
                             <div class = "d-inline-block pt-2 pl-3">
                                 <span class = "advert" > {{ ad.getTitle() }} </span>
                             </div>
@@ -29,21 +18,12 @@
                             </div>
                         </div>
 
-                        <div class = "col-sm-3">
+                        <div class = "col-sm-2">
                             <div class = "container d-flex h-100">
                                 <div class="row justify-content-center align-self-center ml-0">
                                     <a class="btn btn-primary nav-link" href="#MyCollapseCard{{ ad.getId() }}" data-toggle="collapse" role="button"
                                        aria-expanded="true" aria-controls="MyCollapseCard{{ ad.getId() }}">
                                         Informations
-                                    </a>
-                                    <a class="btn btn-success bg-orange nav-link" href="updateAd/{{ad.id}}">
-                                        Update
-                                    </a>
-                                    <a class="btn btn-secondary nav-link" href="applicationCompanyMenu/{{ad.id}}">
-                                        Applications
-                                    </a>
-                                    <a class="btn btn-danger nav-link" href="deleteAd/{{ad.id}}">
-                                        Delete
                                     </a>
                                 </div>
                             </div>
@@ -69,10 +49,22 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+    </div>
+        {% for application in ad.getApplications() %}
+            <div class = "row border">
+                <div class = col-sm-6>
+                    Email : {{ application.getEmail() }}<br>
+                    Phone Number : {{ application.getPhone() }}
+                </div>
+                <div class = col-sm-6>
+                    First Name : {{ application.getFirstName() }} <br>
+                    Last Name : {{ application.getLastName() }} <br>
+                </div>
+                <div class = col-sm-12>
+                    Message : {{ application.getMessage() }}
+                </div>
+            </div>
         {% endfor %}
     </div>
-    <!-- END ADS -->
-</div>
-    <!-- END CONTENT -->
 {% endblock %}
